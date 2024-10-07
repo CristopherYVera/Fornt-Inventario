@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Producto } from '../producto';
 import { ProductoService } from '../producto.service';
 import { NgFor } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-producto-lista',
@@ -13,7 +14,7 @@ import { NgFor } from '@angular/common';
 export class ProductoListaComponent {
   productos:Producto[];
 
-  constructor(private ProductoServicio: ProductoService) {}
+  constructor(private ProductoServicio: ProductoService, private enrutador:Router ) {}
 
   ngOnInit() {
     this.obtenerProductos();
@@ -27,4 +28,18 @@ export class ProductoListaComponent {
       })
     );
   }
+
+  editarProdcuto(id:number){
+    this.enrutador.navigate(['editar',id]);
+  }
+
+  eliminarProducto(id:number){
+    this.ProductoServicio.eliminarProducto(id).subscribe(
+      {
+        next:(datos) => this.obtenerProductos(),
+        error:(error)=> console.log(error)
+      }
+    )
+  }
+
 }

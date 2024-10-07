@@ -17,4 +17,20 @@ export class ProductoService {
   obtenerProdcutoLista():Observable<Producto[]>{
     return this.clienteHttp.get<Producto[]>(this.urlBase);
   }
+
+  agregarProdcuto(producto:Producto):Observable<Object>{
+    return this.clienteHttp.post(this.urlBase,producto);
+  }
+
+  obtenerProductoPorId(id:number){
+    return this.clienteHttp.get<Producto>(this.urlBase + "/" + id);
+  }
+
+  editarProducto(id:number,producto:Producto):Observable<Object>{
+    return this.clienteHttp.put(this.urlBase+"/"+id , producto)
+  }
+
+  eliminarProducto(id:number):Observable<Object>{
+    return this.clienteHttp.delete(this.urlBase+"/"+id);
+  }
 }
